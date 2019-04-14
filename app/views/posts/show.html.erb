@@ -8,7 +8,7 @@
 <%= f.text_field :users, list: "comment_user_id", id: "comment_user_id" %> 
 <datalist id="comment_user_id">
 <% User.all.each do |user| %> 
-  <option value="<%= user.username %> says: <%= user.comments.first %>">
+  <option value="<%= user.username %>">
 <% end %>
 </datalist>
 
