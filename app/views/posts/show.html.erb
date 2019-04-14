@@ -1,9 +1,18 @@
 <%= form_for @post do |f| %> 
  <%= f.label :content %>
+ 
  <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
-    <%= comments_fields.text_field :content %>
+    <%= comments_fields.text_field :content, id: "comment_content" %>
+<%= f.collection_check_boxes :user_ids, User.all, :id, :username %>
+<%= f.text_field :users, list: "comment_user_id", id: "comment_user_id" %> 
+<datalist id="comment_user_id">
+<% User.all.each do |user| %>
+  <option value="<%= user.username %>">
+<% end %>
+</datalist>
+
   <% end %>
-<%= f.submit %> 
+<%= f.submit 'Create Comment' %> 
 <%end%> 
 
 
