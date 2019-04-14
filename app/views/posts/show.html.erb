@@ -1,8 +1,11 @@
 <% require 'pry'%>
-<%= form_for @post.comments.build do |f| %> 
+<%= form_for Comment.new do |f| %> 
+<%= f.hidden_field :post_id, {:value => @post.id} %> 
  <%= f.label :content %>
 <%= f.text_field :content, id: "comment_content" %>
 <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+<%= f.fields_for :user, comment.user.build do |user_fields| %> 
+<%= user_fields.text_field :username %>
 <%= f.text_field :user, list: "comment_user_id", id: "comment_user_id" %> 
 <datalist id="comment_user_id">
     <% User.all.each do |user| %> 
@@ -15,6 +18,7 @@
 <%= @post.comments.each do |comment| %> 
     <%= comment.user.username %> says: <%= comment.content %> 
     <% end %> 
+ <% end %> 
 
 
 
